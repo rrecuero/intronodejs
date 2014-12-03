@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Node JS Intro</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h2> Node JS </h2>
+					<h3> Why the hell should you use it</h3>
+					<h4> Intro, use cases and pitfalls to avoid</h4>
+					<p>
+						<small>Created by <a href="http://www.linkedin.com/in/ramonrecuero/">Ramon Recuero</a> / <a href="http://twitter.com/ramonrecuero">@ramonrecuero</a></small>
+					</p>
+					<aside class="notes">
+						First of all, thank you for having me. My name is Ramon and I work as a software engineer at Moz, a web marketing company. Before that, I worked with Drew and Eric in web games. Drew asked me to give a brief introduction to Node JS and I love the technology so here I am.
+				   </aside>
+				</section>
+				<section>
+					<h2> What it is not</h2>
+					<image class="fragment roll-in" width='500' src='https://i.imgflip.com/er027.jpg'>
+					<aside class="notes">
+			   		You probably heard about the main idea behind node JS. How it uses non-blocking, event-driven I/O to remain lightweight and be efficient.
+
+			   		But what is also really important to understand is that that Node.js is not the answer for everything. Instead, it’s a platform that fills a particular need. And understanding that is key.
+
+			   		For example, you definitely don’t want to use Node.js for CPU-intensive operations; if you do that you would cancel all of its advantages. Where Node really shines is in building fast, scalable network applications,it can handle a huge number of connections with high throughput, which means high scalability.
+			    </aside>
+				</section>
+				<section>
+					<h2> How does it work? (1/2)</h2>
+					<image class="fragment roll-in" width='800' src='http://i.imgur.com/Vz7GwQC.png'>
+					<aside class="notes">
+			   		Let's discuss how it works comparing it to traditional web-servers.Compared to traditional web-serving techniques where each request creates a new thread, taking up system RAM and eventually maxing-out at the amount of available memory.
+
+			   		A quick calculation: assuming that each thread potentially has an accompanying 2 MB of memory with it, running on a system with 8 GB of RAM puts us at a theoretical maximum of 4000 concurrent connections, plus the cost of context-switching between threads. That’s the scenario you typically deal with in traditional web-serving techniques. By avoiding all that, Node.js achieves scalability levels of over 1M concurrent connections (as a proof-of-concept).
+			    </aside>
+				</section>
+				<section>
+					<h2> How does it work? (2/2)</h2>
+					<image class="fragment roll-in" width='800' src='http://i.imgur.com/DdDt0Q4.png'>
+					<aside class="notes">
+			   		On the other hand, Node JS has only a single-thread. By using non-blocking I/O calls, it can support thousands of concurrent connections that are held in an event loop. Think about it like a game main loop, it is really similar.
+
+			   		There is, of course, the question of sharing a single thread between all the requests, and this can be a problem writing Node.js applications. Firstly, heavy computation could choke up Node’s single thread and cause problems for all clients because incoming requests would be blocked until said operation was completed. Secondly, developers need to be really careful not to allow an exception bubbling up to the core (topmost) Node.js event loop, which will cause the Node.js instance to terminate (effectively crashing the program).
+			    </aside>
+				</section>
+				<section>
+					<h2> NPM</h2>
+					<ul>
+						<li class="fragment roll-in"> Similar to Ruby Gems, but nicer!</li>
+						<li class="fragment roll-in"> Wide Adoption. > 110K</li>
+						<li class="fragment roll-in"> Version and Dependency management</li>
+						<li class="fragment roll-in"> Driven by package.json</li>
+						<li class="fragment roll-in"> <code data-trim> npm install</code></li>
+						<li class="fragment roll-in"> <code data-trim> npm publish</code></li>
+					</ul>
+					<aside class="notes">
+			   		Now, let's talk about the main features and avantages of Node JS. One of the first ones, is its module program, (NPM).
+			   		In theory, the idea of NPM modules is quite similar to that of Ruby Gems: publicly available, reusable components, easy installation, with version and dependency management. In reality it is much nicer.
+
+			   		There are more than 110K modules ready to use. Community support is great at this point. It is really easy to install modules
+			   		using npm install and even publish new ones to the community using npm publish.
+			    </aside>
+				</section>
+				<section>
+					<h2> Holy Grail: Single Language Stack</h2>
+					<image class="fragment roll-in" width='600' src='http://www.empireonline.com/images/uploaded/indiana-jones-holy-grail.jpg'>
+					<p class="fragment roll-in">
+						Unified language (JS) and data format (JSON)
+					</p>
+					<aside class="notes">
+						This is not a benefit of Node.js per se  but it is the holy grail for developers. A whole web stack with an unified language and data format (JSON), zo you can use your developer resources for efficiently. As this is more a benefit of JavaScript than Node.js specifically, we won’t discuss it much here. But it’s a key advantage to incorporating Node in your stack.
+					</aside>
+				</section>
+				<section>
+					<h2>Use Cases: Chat</h2>
+					<iframe style='background-color:white' allowtransparency="false" src="http://chat.socket.io" width="100%" height="480" scrolling="no" class=" fragment iframe-class" frameborder="0"></iframe>
+					<aside class="notes">
+						Now, let's talk about applications where Node JS really shines. It’s worth noting that Ryan Dahl, the creator of Node.js, was aiming to create real-time websites with push capability, “inspired by applications like Gmail”.
+
+						Chat is the perfect showcase for a Node JS application. It’s a lightweight, high traffic, data-intensive (but low processing/computation) application that runs across distributed devices
+					</aside>
+				</section>
+				<section>
+					<image class="fragment roll-in" height='600' src='http://www.toptal.com/uploads/blog/image/52/toptal-blog-2_B.png'>
+					<aside class="notes">
+						Let's try to explain how it works.
+						When one of the clients posts a message, here’s what happens:
+						Browser catches the ‘Send’ button click through a JavaScript handler, picks up the value from the input field, and emits a websocket message using the websocket client connected to our server.
+						Server-side component of the websocket connection receives the message and redirects it to all other connected clients using the broadcast method.
+						All clients receive the new message as a push message via a websockets client-side component running within the web page. They then pick up the message content and update the web page in-place by appending the new message to the board.
+					</aside>			
+				</section>
+				<section>
+					<h2>Use Cases: Queued Inputs</h2>
+					<image class="fragment roll-in" height='600' src='http://www.toptal.com//uploads/blog/image/53/toptal-blog-3_B.png'>
+					<aside class="notes">
+						Let's look at another use case.
+						Assume that you have a high amount of concurrent data, then your database can become a bottleneck. As depicted above, Node.js can easily handle the concurrent connections themselves. But because database access is a blocking operation (in this case), we run into trouble. The solution is to acknowledge the client’s behavior before the data is truly written to the database.
+
+						With that approach, the system maintains its responsiveness under a heavy load, which is particularly useful when the client doesn’t need firm confirmation of a the successful data write. Typical examples include: the logging or writing of user-tracking data, processed in batches and not used until a later time; as well as operations that don’t need to be reflected instantly (like updating a ‘Likes’ count on Facebook) where eventual consistency (so often used in NoSQL world) is acceptable.
+
+						Data gets queued through some kind of caching or message queuing infrastructure (e.g., RabbitMQ, ZeroMQ) and digested by a separate database batch-write process, or computation intensive processing backend services, written in a better performing platform for such tasks. Similar behavior can be implemented with other languages/frameworks, but not on the same hardware, with the same high, maintained throughput.
+
+						In short: with Node, you can push the database writes off to the side and deal with them later, proceeding as if they succeeded.
+					</aside>
+				</section>
+				<section>
+					<h2>Other Great Use Cases</h2>
+					<ul>
+						<li>API on top of object DB</li>
+						<li>Data Streaming</li>
+						<li>Proxies</li>
+						<li>Monitoring Dashboards</li>
+					</ul>
+					<aside class="notes">
+						There are other perfect uses for Node JS:
+
+						- Although Node.js really shines with real-time applications, it’s quite a natural fit for exposing the data from 
+						NoSQL datastores like MongoDB. JSON stored data allow Node.js to function without having to deal with data conversion.
+
+						- In more traditional web platforms, HTTP requests and responses are treated like isolated event; in fact, they’re actually streams. This observation can be utilized in Node.js to build some cool features. For example, it’s possible to process files while they’re still being uploaded, as the data comes in through a stream and we can process it in an online fashion. This could be done for real-time audio or video encoding, and proxying between different data sources. Socket IO for this as well.
+
+						- Node.js is easily employed as a server-side proxy where it can handle a large amount of simultaneous connections in a non-blocking manner. It’s especially useful for proxying different services with different response times, or collecting data from multiple source points. An example: consider a server-side application communicating with third-party resources, pulling in data from different sources, or storing assets like images and videos to third-party cloud services.
+
+						- Again, applications that don't follow Request/Response pattern. Monitoring dashboards where you just push data from the server to the client, refresh the client and the server doesn't need to respond.
+					</aside>			
+				</section>
+				<section>
+					<h2>When you shouldn't use it</h2>
+					<h3>... and how you could sill benefit from Node </h3>
+					<ul>
+						<li> Server Side Web Application on top of a relation db</li>
+						<li> Heavy Server Side Computation processing </li>
+					</ul>
+					<aside class="notes">
+						Comparing Node.js with Express.js against Ruby on Rails, for example, there is a clean decision in favour of the latter when it comes to relational data access.
+
+						Relational DB tools for Node.js are still in their early stages; they’re rather immature and not as pleasant to work with (sequelize). On the other hand, Rails automagically provides data access setup right out of the box together with DB schema migrations support tools and other Gems (pun intended). Rails and its peer frameworks have mature and proven Active Record or Data Mapper data access layer implementations, which you’ll sorely miss if you try to replicate them in pure JavaScript.[*]
+
+						[*] It’s possible and not uncommon to use Node solely as a front-end, while keeping your Rails back-end and its easy-access to a relational DB.
+
+						When it comes to heavy computation, Node.js is not the best platform around. No, you definitely don’t want to build a Fibonacci computation server in Node.js. In general, any CPU intensive operation annuls all the throughput benefits Node offers with its event-driven, non-blocking I/O model because any incoming requests will be blocked while the thread is occupied with your number-crunching.
+
+						As stated previously, Node.js is single-threaded and uses only a single CPU core. When it comes to adding concurrency on a multi-core server, there is some work being done by the Node core team in the form of a cluster module [ref: http://nodejs.org/api/cluster.html]. You can also run several Node.js server instances pretty easily behind a reverse proxy via nginx.
+
+						With clustering, you should still offload all heavy computation to background processes written in a more appropriate environment for that, and having them communicate via a message queue server like RabbitMQ.
+
+						Even though your background processing might be run on the same server initially, such an approach has the potential for very high scalability. Those background processing services could be easily distributed out to separate worker servers without the need to configure the loads of front-facing web servers.
+
+						Of course, you’d use the same approach on other platforms too, but with Node.js you get that high reqs/sec throughput we’ve talked about, as each request is a small task handled very quickly and efficiently.
+					</aside>	
+				</section>
+				<section>
+					<h2>Root of all evil</h2>
+					<div class='fragment'>
+						<blockquote>
+							In Node, blocking operations are the root of all evil—99% of Node
+							misuses come as a direct consequence.
+						</blockquote>
+					</div>
+					<aside class="notes">
+						Remember: Node.js was never created to solve the compute scaling problem. It was created to solve the I/O scaling problem, which it does really well.
+
+						Why use Node.js? If your use case does not contain CPU intensive operations and doesn't access any blocking resources, you can exploit the benefits of Node.js and enjoy fast and scalable network applications.
+					</aside>	
+				</section>
+				<section>
+					<h2>Questions?</h2>
+					<small><a href="https://github.com/seomoz/jsmeetupsockets">https://github.com/seomoz/jsmeetupsockets</a></small>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
